@@ -1,8 +1,8 @@
 package xlsx
 
 import (
-	"github.com/mattn/go-ole"
-	"github.com/mattn/go-ole/oleutil"
+	"github.com/go-ole/go-ole"
+	"github.com/go-ole/go-ole/oleutil"
 )
 
 type Xlsx ole.IDispatch
@@ -23,6 +23,7 @@ func CreateObject() (*Xlsx, error) {
 }
 
 func (this *Xlsx) Release() {
+	oleutil.MustCallMethod((*ole.IDispatch)(this), "Quit")
 	(*ole.IDispatch)(this).Release()
 }
 
