@@ -17,6 +17,14 @@ func (this *Range) ToString() string {
 	return ""
 }
 
+func (this *Range) PutValue(o interface{}) {
+	oleutil.MustPutProperty((*ole.IDispatch)(this), "Value", o)
+}
+
+func (this *Range) PutValue2(o interface{}) {
+	oleutil.MustPutProperty((*ole.IDispatch)(this), "Value2", o)
+}
+
 func (this *Range) Format(fmt string) {
 	oleutil.MustPutProperty((*ole.IDispatch)(this), "Format", fmt)
 }

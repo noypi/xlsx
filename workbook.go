@@ -9,6 +9,11 @@ func (this *Workbook) Close() {
 	oleutil.MustCallMethod((*ole.IDispatch)(this), "Close", false)
 }
 
+func (this *Workbook) Save(fpath string, params ...interface{}) {
+	params = append([]interface{}{fpath}, params...)
+	oleutil.MustCallMethod((*ole.IDispatch)(this), "SaveAs", params...)
+}
+
 func (this *Workbook) Worksheets(i int) *Worksheet {
 	if v := oleutil.MustGetProperty((*ole.IDispatch)(this), "Worksheets", i); nil != v {
 		return (*Worksheet)(v.ToIDispatch())

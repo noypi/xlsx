@@ -13,3 +13,10 @@ func (this *Workbooks) Open(filepath string) *Workbook {
 	}
 	return nil
 }
+
+func (this *Workbooks) Create() *Workbook {
+	if v := oleutil.MustCallMethod((*ole.IDispatch)(this), "Add"); nil != v {
+		return (*Workbook)(v.ToIDispatch())
+	}
+	return nil
+}
