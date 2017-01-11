@@ -17,6 +17,13 @@ func (this *Range) ToString() string {
 	return ""
 }
 
+func (this *Range) Font() (out *Font) {
+	if v := oleutil.MustGetProperty((*ole.IDispatch)(this), "Font"); nil != v {
+		return (*Font)(v.ToIDispatch())
+	}
+	return nil
+}
+
 func (this *Range) PutValue(o interface{}) {
 	oleutil.MustPutProperty((*ole.IDispatch)(this), "Value", o)
 }
@@ -25,6 +32,14 @@ func (this *Range) PutValue2(o interface{}) {
 	oleutil.MustPutProperty((*ole.IDispatch)(this), "Value2", o)
 }
 
-func (this *Range) Format(fmt string) {
-	oleutil.MustPutProperty((*ole.IDispatch)(this), "Format", fmt)
+func (this *Range) SetFormulaR1C1(s string) {
+	oleutil.MustPutProperty((*ole.IDispatch)(this), "FormulaR1C1", s)
+}
+
+func (this *Range) GetFormulaR1C1() string {
+	if val := oleutil.MustGetProperty((*ole.IDispatch)(this), "FormulaR1C1"); nil != val {
+		return val.Value().(string)
+	}
+
+	panic("should not be here")
 }
