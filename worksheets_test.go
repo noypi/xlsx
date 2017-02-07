@@ -26,6 +26,6 @@ func ExamplePrintOut() {
 	r := sheet1.Range("a1")
 	r.PutValue("adrian guwapo")
 
-	sheet1.PrintOut(0, 0, 2)
+	sheet1.PrintOut(0, 0, 1)
 
 }

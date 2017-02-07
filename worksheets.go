@@ -40,5 +40,5 @@ func (this *Worksheet) PrintOut(fromPage, toPage, copies int, params ...interfac
 	} else {
 		params = append(ps, params...)
 	}
-	oleutil.MustGetProperty((*ole.IDispatch)(this), "PrintOut", params...)
+	oleutil.MustCallMethod((*ole.IDispatch)(this), "PrintOut", params...)
 }
