@@ -2,12 +2,11 @@ package xlsx
 
 import (
 	"fmt"
-	"testing"
 
 	"github.com/mattn/go-ole"
 )
 
-func TestRangeToString(t *testing.T) {
+func ExampleRangeToString() {
 	ole.CoInitialize(0)
 	defer ole.CoUninitialize()
 
@@ -24,22 +23,14 @@ func TestRangeToString(t *testing.T) {
 	}
 	defer excel.Release()
 
-	filepath := "D:\\dev\\gopath\\src\\xlsx\\dummy.xlsx"
+	fpath := "m:\\gopath\\src\\github.com\\noypi\\xlsx\\dummy.xlsx"
 	workbooks := excel.Workbooks()
-
-	workbook := workbooks.Open(filepath)
-	if nil == workbook {
-		t.Fatal("workbook is nil")
-		return
-	}
+	workbook := workbooks.Open(fpath)
 	defer workbook.Close()
 
 	//
 	sheet1 := workbook.Worksheets(1)
 	r := sheet1.Range("a1")
 	a1Val := r.ToString()
-
-	if "a1" != a1Val {
-		t.Fatal("a1Val=", a1Val)
-	}
+	fmt.Println(a1Val)
 }

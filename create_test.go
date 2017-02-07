@@ -1,12 +1,13 @@
 package xlsx
 
 import (
-	"testing"
+	"io/ioutil"
+	"os"
 
 	"github.com/mattn/go-ole"
 )
 
-func TestCreate(t *testing.T) {
+func ExampleCreate() {
 	ole.CoInitialize(0)
 	defer ole.CoUninitialize()
 
@@ -19,10 +20,6 @@ func TestCreate(t *testing.T) {
 	workbooks := excel.Workbooks()
 
 	workbook := workbooks.Create()
-	if nil == workbook {
-		t.Fatal("workbook is nil")
-		return
-	}
 	defer workbook.Close()
 
 	sheet := workbook.Worksheets(1)
@@ -42,7 +39,8 @@ func TestCreate(t *testing.T) {
 	sheet.Range("A9").SetFormulaR1C1("=1+1")
 	sheet.Range("A10").PutValue2("'" + sheet.Range("A9").GetFormulaR1C1())
 
-	filepath := "c:\\temp\\a.xlsx"
-	workbook.Save(filepath)
+	f, _ := ioutil.TempFile(os.TempDir(), "gotest-xlsx-")
+	defer f.Close()
+	workbook.Save(f.Name())
 
 }

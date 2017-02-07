@@ -13,3 +13,10 @@ func (this *Worksheet) Range(r string) (out *Range) {
 	}
 	return nil
 }
+
+// fromPage = set to 0 for default
+// toPage = set to 0 for default
+// copies = default is 1.
+func (this *Worksheet) PrintOut(fromPage, toPage, copies int, params ...interface{}) {
+	oleutil.MustGetProperty((*ole.IDispatch)(this), "PrintOut", params...)
+}
