@@ -24,6 +24,10 @@ func (this *Range) Font() (out *Font) {
 	return nil
 }
 
+func (this *Range) PutRowHeight(o interface{}) {
+	oleutil.MustPutProperty((*ole.IDispatch)(this), "RowHeight", o)
+}
+
 func (this *Range) PutValue(o interface{}) {
 	oleutil.MustPutProperty((*ole.IDispatch)(this), "Value", o)
 }
